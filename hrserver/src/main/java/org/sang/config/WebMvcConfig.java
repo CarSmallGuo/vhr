@@ -4,6 +4,7 @@ import org.sang.common.DateConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.concurrent.ExecutorService;
@@ -23,4 +24,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public ExecutorService executorService() {
         return Executors.newCachedThreadPool();
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowCredentials(true)
+                .allowedMethods("GET", "POST", "DELETE", "PUT")
+                .maxAge(3600);
+    }
+
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.sang.mapper.OpLogMapper">
+    <insert id="addOpLog" parameterType="org.sang.bean.OpLog">
+        INSERT INTO oplog set operate=#{log.operate},hrid=#{log.hrId},addDate=#{log.addDate}
+    </insert>
+    <select id="getOpLogs" resultType="org.sang.bean.OpLog">
+        SELECT * FROM oplog ORDER BY addDate;
+    </select>
+</mapper>

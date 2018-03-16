@@ -18,7 +18,9 @@ axios.interceptors.response.use(data=> {
     Message.error({message: '服务器被吃了⊙﹏⊙∥'});
   } else if (err.response.status == 403) {
     Message.error({message: '权限不足,请联系管理员!'});
-  }else {
+  } else if (err.response.status == 401) {
+    Message.error({message: '尚未登录，请登录!'});
+  } else {
     Message.error({message: '未知错误!'});
   }
   return Promise.resolve(err);

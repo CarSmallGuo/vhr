@@ -1,5 +1,6 @@
 package org.sang.controller;
 
+import org.sang.bean.RespBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,13 +14,13 @@ import java.io.PrintWriter;
 @RestController
 public class RegLoginController {
     @RequestMapping("/login_p")
-    public void login(HttpServletResponse resp) throws IOException {
+    public RespBean login(HttpServletResponse resp) throws IOException {
         resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         resp.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = resp.getWriter();
-        out.write("{\"status\":\"error\",\"msg\":\"尚未登录，请登录!\"}");
-        out.flush();
-        out.close();
-        //        return new RespBean("error", "尚未登录，请登录!");
+        //PrintWriter out = resp.getWriter();
+        //out.write("{\"status\":\"error\",\"msg\":\"尚未登录，请登录!\"}");
+        //out.flush();
+        //out.close();
+        return new RespBean("error", "尚未登录，请登录!");
     }
 }

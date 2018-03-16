@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -93,6 +94,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 out.flush();
                 out.close();
             }
-        }).and().logout().permitAll().and().csrf().disable().exceptionHandling().accessDeniedHandler(authenticationAccessDeniedHandler);
+        }).and().logout().logoutSuccessHandler(new LogoutSuccessHandler() {
+            @Override
+            public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+                httpServletResponse.setContentType("application/json;charset=utf-8");
+                PrintWriter out = httpServletResponse.getWriter();
+                String s = "{\"status\":\"success\",\"msg\":" + "退出登录成功" + "}";
+                out.write(s);
+                out.flush();
+                out.close();
+            }
+        }).permitAll().and().csrf().disable().exceptionHandling().accessDeniedHandler(authenticationAccessDeniedHandler);
     }
 }
