@@ -13,7 +13,12 @@ public class OpLogService {
     @Autowired
     OpLogMapper opLogMapper;
 
-    public List<OpLog> getOpLogs() {
-        return opLogMapper.getOpLogs();
+    public List<OpLog> getOpLogs(Integer page, Integer size) {
+        int start = (page - 1) * size;
+        return opLogMapper.getOpLogs(start, size);
+    }
+
+    public Long getOpLogCount() {
+        return opLogMapper.getOpLogCount();
     }
 }

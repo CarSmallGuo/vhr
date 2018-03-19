@@ -8,5 +8,7 @@ import java.util.List;
 public interface OpLogMapper {
     int addOpLog(@Param("log") OpLog log);
 
-    List<OpLog> getOpLogs();
+    List<OpLog> getOpLogs(@Param("start") Integer start, @Param("size") Integer size);
+
+    Long getOpLogCount();
 }

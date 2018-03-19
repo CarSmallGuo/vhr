@@ -7,6 +7,13 @@
         INSERT INTO oplog set operate=#{log.operate},hrid=#{log.hrId},addDate=#{log.addDate}
     </insert>
     <select id="getOpLogs" resultType="org.sang.bean.OpLog">
-        SELECT * FROM oplog ORDER BY addDate;
+        SELECT * FROM oplog r
+        <if test="start!=null and size!=null">
+            order by r.id limit #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getOpLogCount" resultType="Long">
+        SELECT count(*) FROM oplog
     </select>
 </mapper>
